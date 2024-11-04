@@ -1,5 +1,6 @@
 import data
 from typing import Optional
+from typing import Dict
 
 # Write your functions for each part in the space below.
 
@@ -37,12 +38,60 @@ def selection_sort(values:list[int]) -> None:
 
 
 # Part 1
+def alphabetical_swapping(values: list[data.Book], start: int) -> Optional:
+    highest_book = start
+    for idx in range(start+1, len(values)):
+        if values[idx].title < values[highest_book].title:
+            highest_book = idx
+    return highest_book
 
+def selection_sort_books(given: list[data.Book]) -> list[data.Book]:
+    for idx in range(len(given)-1):
+        alphabet = alphabetical_swapping(given, idx)
+        temp = given[alphabet]
+        given[alphabet] = given[idx]
+        given[idx] = temp
+    return given
 
 # Part 2
-
+def swap_case(input: str) -> str:
+    new_letter_list = []
+    if input.isupper():
+        return input.lower()
+    elif input.islower():
+        return input.upper()
+    else:
+        char_list = list(input)
+        for letter in char_list:
+            if letter.islower():
+                new_letter_list.append(letter.upper())
+            elif letter.isupper():
+                new_letter_list.append(letter.lower())
+            else:
+                new_letter_list.append(letter)
+    return "".join(new_letter_list)
 
 # Part 3
+def str_translate(input: str, old: str, new: str) -> str:
+    new_letter = []
+    input_list = list(input)
+    for char in input_list:
+        if char ==old:
+            new_letter.append(new)
+        else:
+            new_letter.append(char)
 
+    return "".join(new_letter)
 
 # Part 4
+def histogram(word: str) -> dict:
+    histogram = {}
+    word_str = word.split()
+    for word in word_str:
+        if word not in histogram:
+            histogram[word] = 1
+        elif word in histogram:
+            histogram[word] = histogram[word]+1
+    return histogram
+
+
